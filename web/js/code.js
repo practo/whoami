@@ -11,7 +11,11 @@ $(function(){
 
 	console.log(JSON.parse(localStorage.whoami));
 
+	$("#logoutlink").click(function(){
+		delete localStorage.whoami;
+		window.location = "/index.html";
 
+	})
 
 	
 })

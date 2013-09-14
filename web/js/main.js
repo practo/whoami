@@ -22,8 +22,16 @@ $(function(){
 			url: host + "/users/authenticates",
 			type:"POST",
 			data:$("#signinform").serialize(),
+			dataType:"JSON",
 			success:function(response){
-				log(response);
+
+				
+				localStorage.whoami = JSON.stringify(response);
+			
+				window.location = "/data.html";
+				
+
+				
 			},
 			error:function(){
 				alert("Sorry. Could not log you in.")
