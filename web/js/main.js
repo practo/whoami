@@ -2,6 +2,20 @@ $(function(){
 
 	var host = "http://ec2-54-254-105-248.ap-southeast-1.compute.amazonaws.com";
 
+	if(localStorage){
+		if(!localStorage.whoami){
+			localStorage.whoami = {};
+		}
+		else{
+			if(localStorage.whoami.token){
+				window.location = "/data.html";
+			}
+		}
+	}
+	else{
+		alert("Sorry. You cant use this app.");
+	}
+
 	$("#signinform button").click(function(e){
 		e.preventDefault();
 
