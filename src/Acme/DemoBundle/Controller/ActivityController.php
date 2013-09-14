@@ -11,13 +11,19 @@ use Acme\DemoBundle\Entity\Activity;
 
 class ActivityController extends Controller
 {
-    public function getActivityAction()
+    public function getActivitiesAction()
     {
-        $response = new Response();
-        $response->setContent('<html><body><h1>Hello world!</h1></body></html>');
-        $response->setStatusCode(200);
+        $getParams = $this->getRequest()->query->all();
+        $doctrine = $this->get('doctrine');
+        $repo = $doctrine->getRepository('AcmeDemoBundle:User');
+        $user = $repo->findOneByToken($getParams['token']);
+        $returnData = array();
+        $activities = $user->getActivities();
+        foreach ($activities as $activity) {
+            $returnData[] = $activity->serialise();
+        }
 
-        $response->send();
+        return $returnData;
     }
 
     public function postActivityAction()
