@@ -19,4 +19,13 @@ $(function(){
 	})
 	$("#token_container").html("Please use this token to authenticate :  "+ userObject.token)
 	
+	function getData(){
+		$.ajax({
+			url:host+"/currentweeksummary?token="+userObject.token,
+			dataType:"JSON",
+			success:function(response){
+				console.log(response);
+			}
+		})
+	}
 })
