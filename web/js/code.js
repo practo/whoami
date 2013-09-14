@@ -41,7 +41,7 @@ $(function(){
 
 			    var chartData1 = {
 			        "chart": {
-			        	""
+			        	"numberPrefix":" mins"
 			            "caption": "Where have you been ?",
 			            "bgColor":"#ffffff",
 			            "showvalues": "1",
