@@ -26,8 +26,44 @@ $(function(){
 			dataType:"JSON",
 			success:function(response){
 				console.log(response);
+
+				var jsonData = [];
+
+				$.each(response.location_summary,function(key,dataPoint){
+					jsonData.push({
+						"value":dataPoint.duration_seconds,
+						"label":dataPoint.name
+					})
+				})
+
+				
+
+			    var chartData1 = {
+			        "chart": {
+			            "caption": "Where have you been ?",
+			            "bgColor":"#ffffff",
+			            "showvalues": "1",
+			            "showlegend": "0",
+			            "legendposition": "RIGHT",
+			            slicingDistance: '25',
+			            showBorder: "0",
+			        },
+		        	data:jsonData};
+
+
+		        chartObject1.setJSONData(chartData1);
+		        chartObject1.setTransparent(true);
+		        chartObject1.render("chart1");
 			}
 		})
 	}
 	getData();
+
+	FusionCharts.setCurrentRenderer('javascript');
+
+		chartObject1 = new FusionCharts({
+	            swfUrl: "Charts/Doughnut2D.swf",
+	            width: "100%",
+	            height: "350px"
+	    });
 })
