@@ -54,6 +54,11 @@ class User
      */
     protected $activities;
 
+    /**
+     * @ORM\OneToMany(targetEntity="LocationSummary", mappedBy="user")
+     */
+    protected $locationSummaries;
+
     public function setId($id)
     {
         $this->id = $id;

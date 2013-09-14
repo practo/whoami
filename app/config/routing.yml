@@ -17,3 +17,7 @@ activity:
 location_update:
     resource: Acme\DemoBundle\Controller\LocationUpdateController
     type:     rest
+
+dashboard:
+    resource: Acme\DemoBundle\Controller\DashboardController
+    type:     rest

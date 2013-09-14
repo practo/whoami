@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\View\View;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Acme\DemoBundle\Entity\LocationUpdate;
+use Acme\DemoBundle\Library\Geohash;
 
 class LocationUpdateController extends Controller
 {
@@ -39,6 +40,11 @@ class LocationUpdateController extends Controller
         $locationUpdate->setTimestamp($postData['timestamp']);
         $locationUpdate->setLatitude($postData['latitude']);
         $locationUpdate->setLongitude($postData['longitude']);
+        $geoHash = new Geohash;
+        $geoHash->setLatitude($postData['latitude']);
+        $geoHash->setLongitude($postData['longitude']);
+        $geoHash->setPrecision(0.001);
+        $locationUpdate->setHash($geoHash->getHash());
         $em->persist($locationUpdate);
         $em->flush();
 
