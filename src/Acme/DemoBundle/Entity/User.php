@@ -44,6 +44,11 @@ class User
      */
     protected $token;
 
+    /**
+     * @ORM\OneToMany(targetEntity="LocationUpdate", mappedBy="user")
+     */
+    protected $locationUpdates;
+
     public function setId($id)
     {
         $this->id = $id;
@@ -84,8 +89,26 @@ class User
         return $this->token;
     }
 
+    public function getLocationUpdates()
+    {
+        return $this->locationUpdates;
+    }
+
+    /**
+     * @param LocationUpdate $locationUpdate
+     */
+    public function addLocationUpdate(LocationUpdate $locationUpdate)
+    {
+        return $this->locationUpdates;
+    }
+
     public function serialise()
     {
-        return array('id' => $this->id, 'name' => $this->name, 'email' => $this->email, 'token' => $this->token);
+        return array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'token' => $this->token
+        );
     }
 }
