@@ -13,3 +13,7 @@ user:
 activity:
     resource: Acme\DemoBundle\Controller\ActivityController
     type:     rest
+
+location_update:
+    resource: Acme\DemoBundle\Controller\LocationUpdateController
+    type:     rest
