@@ -40,8 +40,8 @@ $(function(){
 			data:$("#signupform").serialize(),
 			dataType:"JSON",
 			success:function(response){
-				localStorage.whoami = {};
-				localStorage.whoami.user = response;
+				localStorage.whoami = JSON.stringify(response);
+				
 				window.location = "/data.html";
 				
 			},

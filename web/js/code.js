@@ -13,7 +13,7 @@ $(function(){
 		alert("Sorry. You cant use this app.")
 	}
 
-	console.log(localStorage.whoami.user);
+	console.log(JSON.parse(localStorage.whoami.user));
 
 
 
