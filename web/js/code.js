@@ -13,6 +13,7 @@ $(function(){
 		console.log(JSON.parse(localStorage.whoami));
 	}
 	catch(e){
+		delete localStorage.whoami;
 		window.location = "/index.html";
 	}
 			
