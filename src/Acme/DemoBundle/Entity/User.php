@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="users")
  * @ORM\Entity()
  * @UniqueEntity(fields={"id"},
- * message="Client settings already exist for the practice")
+ * message="User already exists")
  */
 class User
 {
@@ -33,7 +33,7 @@ class User
     protected $name;
 
     /**
-     * @ORM\Column(name="email", type="string", nullable=true)
+     * @ORM\Column(name="email", type="string", nullable=true, unique=true)
      * @var string $email
      */
     protected $email;
