@@ -24,7 +24,7 @@ $(function(){
 		$.ajax({
 			url: host + "/users",
 			type:"POST",
-			data:$("#signinform").serialize(),
+			data:$("#signupform").serialize(),
 			success:function(response){
 				log(response);
 			},
