@@ -45,7 +45,7 @@ class User
     protected $token;
 
     /**
-     * @ORM\OneToMany(targetEntity="LocationUpdate")
+     * @ORM\OneToMany(targetEntity="LocationUpdate", mappedBy="user")
      */
     protected $locationUpdates;
 
