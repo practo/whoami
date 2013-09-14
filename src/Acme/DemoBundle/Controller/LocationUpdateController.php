@@ -15,8 +15,9 @@ class LocationUpdateController extends Controller
     public function getLocationupdatesAction()
     {
         $getParams = $this->getRequest()->query->all();
-        $repo = $doctrine->getEntityRepository('AcmeDemoBundle:User');
-        $user = $repo-findOneByToken($getParams['token']);
+        $doctrine = $this->get('doctrine');
+        $repo = $doctrine->getRepository('AcmeDemoBundle:User');
+        $user = $repo->findOneByToken($getParams['token']);
         $returnData = array();
         $locationUpdates = $user->getLocationUpdates();
         foreach ($locationUpdates as $locationUpdate) {
