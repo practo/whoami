@@ -10,12 +10,13 @@ $(function(){
 	}
 
 	console.log(JSON.parse(localStorage.whoami));
+	var userObject = JSON.parse(localStorage.whoami);
 
 	$("#logoutlink").click(function(){
 		delete localStorage.whoami;
 		window.location = "/index.html";
 
 	})
-
+	$("#token_container").html("Please use this token to authenticate :  "+ userObject.token)
 	
 })
