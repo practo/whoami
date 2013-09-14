@@ -1,0 +1,11 @@
+# AcmeDemoBundle routes (to be removed)
+_acme_demo:
+    resource: "@AcmeDemoBundle/Resources/config/routing.yml"
+
+whoami:
+    resource: Acme\DemoBundle\Controller\WhoamiController
+    type:     rest
+
+user:
+    resource: Acme\DemoBundle\Controller\UserController
+    type:     rest
