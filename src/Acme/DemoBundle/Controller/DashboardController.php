@@ -27,8 +27,9 @@ class DashboardController extends Controller
         $userRepo = $doctrine->getRepository('AcmeDemoBundle:User');
         $user = $userRepo->findOneByToken($getParams['token']);
         $lsRepo = $doctrine->getRepository('AcmeDemoBundle:LocationSummary');
-        $returnData = array();
+        $returnData = array('location_summary' => array());
         $entities = $lsRepo->findBy(array(
+            'user' => $user,
             'aggregationUnit' => 'week',
             'startTime' => $startTime
         ));
