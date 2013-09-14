@@ -50,6 +50,13 @@ class LocationUpdate
     private $user;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="hash", type="string")
+     */
+    private $hash;
+
+    /**
      * Get id
      *
      * @return integer
@@ -161,6 +168,16 @@ class LocationUpdate
         return ($this->user)?$this->user->getId():null;
     }
 
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+    }
+
     /**
      * Serialise
      *
@@ -174,6 +191,7 @@ class LocationUpdate
             'latitude' => $this->getLatitude(),
             'longitude' => $this->getLongitude(),
             'user_id' => $this->getUserId(),
+            'hash'    => $this->getHash()
         );
     }
 }
