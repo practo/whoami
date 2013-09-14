@@ -1,3 +1,4 @@
+var host = "http://ec2-54-254-105-248.ap-southeast-1.compute.amazonaws.com";
 $(function(){
 	if(localStorage){
 		if(!localStorage.whoami){
