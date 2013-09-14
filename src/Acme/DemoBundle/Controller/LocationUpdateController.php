@@ -12,7 +12,7 @@ use Acme\DemoBundle\Entity\User;
 
 class LocationUpdateController extends Controller
 {
-    public function getLocationUpdatesAction()
+    public function getLocationupdatesAction()
     {
         $getParams = $this->getRequest()->query->all();
         $repo = $doctrine->getEntityRepository('AcmeDemoBundle:User');
@@ -26,7 +26,7 @@ class LocationUpdateController extends Controller
         return $returnData;
     }
 
-    public function postLocationUpdatesAction()
+    public function postLocationupdatesAction()
     {
         $postData = $this->getRequest()->request->all();
         $doctrine = $this->get('doctrine');
