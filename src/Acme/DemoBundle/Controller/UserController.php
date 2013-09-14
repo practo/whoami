@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\View\View;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Acme\DemoBundle\Entity\User;
+use FOS\Rest\Util\Codes;
 
 class UserController extends Controller
 {
@@ -63,6 +64,6 @@ class UserController extends Controller
             return $user->serialise();
         }
 
-        return false;
+        return View::create('', Codes::HTTP_BAD_REQUEST);
     }
 }
