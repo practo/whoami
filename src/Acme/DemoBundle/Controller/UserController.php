@@ -26,16 +26,16 @@ class UserController extends Controller
         $doctrine = $this->get('doctrine');
         //$repo = $doctrine->getEntityRepository('AcmeDemoBundle:User');
         $em = $doctrine->getManager();
-        $user = new User;
-        $user->setName($postData['name']);
-        $user->setEmail($postData['email']);
-
         //handle duplicate email
         $er = $doctrine->getRepository('AcmeDemoBundle:User');
         $user = $er->findOneBy(array('email' => $postData['email']));
         if ($user) {
             return 'email exits';
         }
+
+        $user = new User;
+        $user->setName($postData['name']);
+        $user->setEmail($postData['email']);
 
         $token = $this->getToken($postData['name'], $postData['email']);
         $user->setToken($token);
