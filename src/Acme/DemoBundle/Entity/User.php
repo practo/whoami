@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User
 {
-	/**
+    /**
      * @var integer $id
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -46,46 +46,46 @@ class User
 
     public function setId($id)
     {
-    	$this->id = $id;
+        $this->id = $id;
     }
 
     public function getId()
     {
-    	return $this->id;
+        return $this->id;
     }
 
     public function getName()
     {
-    	return $this->name;
+        return $this->name;
     }
 
     public function setName($name)
     {
-    	$this->name = $name;
+        $this->name = $name;
     }
 
     public function getEmail()
     {
-    	return $this->email;
+        return $this->email;
     }
 
     public function setEmail($email)
     {
-    	$this->email = $email;
+        $this->email = $email;
     }
 
     public function setToken($token)
     {
-    	$this->token = $token;
+        $this->token = $token;
     }
 
     public function getToken()
     {
-    	return $this->token;
+        return $this->token;
     }
 
     public function serialise()
     {
-    	return array('id' => $this->id, 'name' => $this->name, 'email' => $this->email, 'token' => $this->token);
+        return array('id' => $this->id, 'name' => $this->name, 'email' => $this->email, 'token' => $this->token);
     }
 }

@@ -15,30 +15,46 @@ class UserController extends Controller
     {
         $response = new Response();
         $response->setContent('<html><body><h1>Hello world!</h1></body></html>');
-		$response->setStatusCode(200);
+        $response->setStatusCode(200);
 
-		$response->send();
+        $response->send();
     }
 
     public function postUserAction()
     {
-    	$postData = $this->getRequest()->request->all();
-    	$doctrine = $this->get('doctrine');
-    	//$repo = $doctrine->getEntityRepository('AcmeDemoBundle:User');
-    	$em = $doctrine->getManager();
-    	$user = new User;
-    	$user->setName($postData['name']);
-    	$user->setEmail($postData['email']);
-    	$token = $this->getToken($postData['name'], $postData['email']);
-    	$user->setToken($token);
-     	$em->persist($user);
-     	$em->flush();
+        $postData = $this->getRequest()->request->all();
+        $doctrine = $this->get('doctrine');
+        //$repo = $doctrine->getEntityRepository('AcmeDemoBundle:User');
+        $em = $doctrine->getManager();
+        $user = new User;
+        $user->setName($postData['name']);
+        $user->setEmail($postData['email']);
+        $token = $this->getToken($postData['name'], $postData['email']);
+        $user->setToken($token);
+        $em->persist($user);
+        $em->flush();
 
-     	return $user->serialise();
+        return $user->serialise();
     }
 
     protected function getToken($name, $email)
     {
-    	return substr(md5($name.$email), -6);
+        return substr(md5($name.$email), -6);
+    }
+
+    public function postUserAuthenticateAction()
+    {
+        $doctrine = $this->get('doctrine');
+        $er = $doctrine->getRepository('AcmeDemoBundle:User');
+        $postData = $this->getRequest()->request->all();
+        $token = $postData['token'];
+        $email = $postData['email'];
+        $em = $doctrine->getManager();
+        $user = $er->findOneBy(array('email' => $email, 'token' => $token));
+        if ($user) {
+            return true;
+        }
+
+        return false;
     }
 }
