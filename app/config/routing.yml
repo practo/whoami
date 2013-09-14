@@ -9,3 +9,7 @@ whoami:
 user:
     resource: Acme\DemoBundle\Controller\UserController
     type:     rest
+
+activity:
+    resource: Acme\DemoBundle\Controller\ActivityController
+    type:     rest
