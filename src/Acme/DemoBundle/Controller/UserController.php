@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\View\View;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
 use Acme\DemoBundle\Entity\User;
+use FOS\Rest\Util\Codes;
 
 class UserController extends Controller
 {
@@ -26,16 +27,16 @@ class UserController extends Controller
         $doctrine = $this->get('doctrine');
         //$repo = $doctrine->getEntityRepository('AcmeDemoBundle:User');
         $em = $doctrine->getManager();
-        $user = new User;
-        $user->setName($postData['name']);
-        $user->setEmail($postData['email']);
-
         //handle duplicate email
         $er = $doctrine->getRepository('AcmeDemoBundle:User');
         $user = $er->findOneBy(array('email' => $postData['email']));
         if ($user) {
             return 'email exits';
         }
+
+        $user = new User;
+        $user->setName($postData['name']);
+        $user->setEmail($postData['email']);
 
         $token = $this->getToken($postData['name'], $postData['email']);
         $user->setToken($token);
@@ -60,9 +61,9 @@ class UserController extends Controller
         $em = $doctrine->getManager();
         $user = $er->findOneBy(array('email' => $email, 'token' => $token));
         if ($user) {
-            return true;
+            return $user->serialise();
         }
 
-        return false;
+        return View::create('', Codes::HTTP_BAD_REQUEST);
     }
 }
