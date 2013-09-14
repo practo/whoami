@@ -13,7 +13,7 @@ class RandomActivitiesCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
-        $this->setName('activity:random')
+        $this->setName('random:activity')
              ->setDescription('Generate Random Activities')
              ->addArgument(
                  'user_id',
