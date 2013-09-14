@@ -24,8 +24,11 @@ $(function(){
 		window.location = "/index.html";
 
 	})
-	$("#token_container").html("Please use this token to authenticate :  "+ userObject.token);
-	$("#userdata").html(userObject.email)
+	$("#token_container").html("Please use this token to authenticate :  <strong>"+ userObject.token+"</strong>");
+	$("#userdata").html(userObject.email);
+
+	var number = Math.floor(Math.random()*75);
+	$(".randomquote li").eq(number).show();
 	
 	function getData(){
 		$.ajax({
