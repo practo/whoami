@@ -5,8 +5,8 @@ $(function(){
 
 	if(localStorage){
 		
-		
-		if(localStorage.whoami && localStorage.whoami.user && localStorage.whoami.user.token){
+	
+		if(localStorage.whoami){
 			window.location = "/data.html";
 		}
 		
