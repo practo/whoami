@@ -60,7 +60,7 @@ class UserController extends Controller
         $em = $doctrine->getManager();
         $user = $er->findOneBy(array('email' => $email, 'token' => $token));
         if ($user) {
-            return true;
+            return $user->serialise();
         }
 
         return false;
