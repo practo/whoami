@@ -9,8 +9,13 @@ $(function(){
 	else{
 		alert("Sorry. You cant use this app.")
 	}
-
-	console.log(JSON.parse(localStorage.whoami));
+	try{
+		console.log(JSON.parse(localStorage.whoami));
+	}
+	catch(e){
+		window.location = "/index.html";
+	}
+			
 	var userObject = JSON.parse(localStorage.whoami);
 
 	$("#logoutlink").click(function(){
