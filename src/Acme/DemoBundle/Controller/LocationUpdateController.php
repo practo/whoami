@@ -8,15 +8,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\View\View;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
-use Acme\DemoBundle\Entity\User;
+use Acme\DemoBundle\Entity\LocationUpdate;
 
 class LocationUpdateController extends Controller
 {
     public function getLocationupdatesAction()
     {
         $getParams = $this->getRequest()->query->all();
-        $repo = $doctrine->getEntityRepository('AcmeDemoBundle:User');
-        $user = $repo-findOneByToken($getParams['token']);
+        $doctrine = $this->get('doctrine');
+        $repo = $doctrine->getRepository('AcmeDemoBundle:User');
+        $user = $repo->findOneByToken($getParams['token']);
         $returnData = array();
         $locationUpdates = $user->getLocationUpdates();
         foreach ($locationUpdates as $locationUpdate) {
@@ -30,9 +31,9 @@ class LocationUpdateController extends Controller
     {
         $postData = $this->getRequest()->request->all();
         $doctrine = $this->get('doctrine');
-        $repo = $doctrine->getEntityRepository('AcmeDemoBundle:User');
+        $repo = $doctrine->getRepository('AcmeDemoBundle:User');
         $em = $doctrine->getManager();
-        $user = $repo-findOneByToken($postData['token']);
+        $user = $repo->findOneByToken($postData['token']);
         $locationUpdate = new LocationUpdate;
         $locationUpdate->setUser($user);
         $locationUpdate->setTimestamp($postData['timestamp']);
