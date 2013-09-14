@@ -18,7 +18,8 @@ $(function(){
 		window.location = "/index.html";
 
 	})
-	$("#token_container").html("Please use this token to authenticate :  "+ userObject.token)
+	$("#token_container").html("Please use this token to authenticate :  "+ userObject.token);
+	$("#userdata").html(userObject.email)
 	
 	function getData(){
 		$.ajax({
@@ -31,7 +32,7 @@ $(function(){
 
 				$.each(response.location_summary,function(key,dataPoint){
 					jsonData.push({
-						"value":dataPoint.duration_seconds,
+						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
 					})
 				})
@@ -40,6 +41,7 @@ $(function(){
 
 			    var chartData1 = {
 			        "chart": {
+			        	""
 			            "caption": "Where have you been ?",
 			            "bgColor":"#ffffff",
 			            "showvalues": "1",
