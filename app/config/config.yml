@@ -64,3 +64,40 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+jms_serializer:
+    handlers:
+        datetime:
+            default_format: Y-m-d H:i:s
+            default_timezone: UTC
+
+    property_naming:
+        separator:  _
+        lower_case: true
+
+    metadata:
+        cache: file
+        debug: %kernel.debug%
+        file_cache:
+            dir: %kernel.cache_dir%/serializer
+sensio_framework_extra:
+    view:
+        annotations: false
+
+fos_rest:
+    view:
+        view_response_listener: force
+        formats:
+            json: true
+            html: false
+            xml: false
+            pdf: true
+    format_listener:
+        default_priorities: ['json', 'pdf', 'html']
+        fallback_format: json
+        prefer_extension: true
+    routing_loader:
+        default_format: json
+    exception:
+        codes:
+            'Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException': 401

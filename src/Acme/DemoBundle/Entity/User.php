@@ -9,9 +9,9 @@ use Symfony\Component\Validator\ExecutionContext;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Practo\ApiBundle\Entity\User.php
+ * Practo\ApiBundle\Entity\Users.php
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="users")
  * @ORM\Entity()
  * @UniqueEntity(fields={"id"},
  * message="Client settings already exist for the practice")
@@ -39,10 +39,10 @@ class User
     protected $email;
 
     /**
-     * @ORM\Column(name="key", type="string", nullable=true)
-     * @var string $key
+     * @ORM\Column(name="token", type="string", nullable=true)
+     * @var string $token
      */
-    protected $key;
+    protected $token;
 
     public function setId($id)
     {
@@ -74,18 +74,18 @@ class User
     	$this->email = $email;
     }
 
-    public function setKey($key)
+    public function setToken($token)
     {
-    	$this->key = $key;
+    	$this->token = $token;
     }
 
-    public function getKey()
+    public function getToken()
     {
-    	return $this->key;
+    	return $this->token;
     }
 
     public function serialise()
     {
-    	return array('id' => $this->id);
+    	return array('id' => $this->id, 'name' => $this->name, 'email' => $this->email, 'token' => $this->token);
     }
 }

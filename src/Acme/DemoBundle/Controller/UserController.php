@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\View\View;
+use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine;
+use Acme\DemoBundle\Entity\User;
 
 class UserController extends Controller
 {
@@ -21,6 +23,22 @@ class UserController extends Controller
     public function postUserAction()
     {
     	$postData = $this->getRequest()->request->all();
-    	var_dump($postData);die;
+    	$doctrine = $this->get('doctrine');
+    	//$repo = $doctrine->getEntityRepository('AcmeDemoBundle:User');
+    	$em = $doctrine->getManager();
+    	$user = new User;
+    	$user->setName($postData['name']);
+    	$user->setEmail($postData['email']);
+    	$token = $this->getToken($postData['name'], $postData['email']);
+    	$user->setToken($token);
+     	$em->persist($user);
+     	$em->flush();
+
+     	return $user->serialise();
+    }
+
+    protected function getToken($name, $email)
+    {
+    	return substr(md5($name.$email), -6);
     }
 }
