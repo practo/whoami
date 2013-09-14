@@ -7,7 +7,7 @@ $(function(){
 			localStorage.whoami = {};
 		}
 		else{
-			if(localStorage.whoami.token){
+			if(localStorage.whoami.user && localStorage.whoami.user.token){
 				window.location = "/data.html";
 			}
 		}
@@ -39,8 +39,12 @@ $(function(){
 			url: host + "/users",
 			type:"POST",
 			data:$("#signupform").serialize(),
+			dataType:"JSON",
 			success:function(response){
-				log(response);
+
+				localStorage.whoami.user = response;
+				window.location = "/data.html";
+				
 			},
 			error:function(){
 				alert("Sorry. Could not log you in.")
