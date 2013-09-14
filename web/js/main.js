@@ -4,14 +4,12 @@ $(function(){
 	var host = '';
 
 	if(localStorage){
-		if(!localStorage.whoami){
-			localStorage.whoami = {};
+		
+		
+		if(localStorage.whoami && localStorage.whoami.user && localStorage.whoami.user.token){
+			window.location = "/data.html";
 		}
-		else{
-			if(localStorage.whoami.user && localStorage.whoami.user.token){
-				window.location = "/data.html";
-			}
-		}
+		
 	}
 	else{
 		alert("Sorry. You cant use this app.");
@@ -42,7 +40,7 @@ $(function(){
 			data:$("#signupform").serialize(),
 			dataType:"JSON",
 			success:function(response){
-
+				localStorage.whoami = {};
 				localStorage.whoami.user = response;
 				window.location = "/data.html";
 				
