@@ -114,8 +114,8 @@ $(function(){
 							}
 							else{
 								activityGroupJsonData.push({
-									"value":Math.floor(dataPoint.duration_seconds/60),
-									"label":dataPoint.name
+									"value":Math.floor(dataPoint.total_time/60),
+									"label":dataPoint.activity
 								})
 							}
 						}
@@ -126,8 +126,8 @@ $(function(){
 
 					if(!isKnown){
 						activityGroupJsonData.push({
-							"value":Math.floor(dataPoint.duration_seconds/60),
-							"label":dataPoint.name
+							"value":Math.floor(dataPoint.total_time/60),
+							"label":dataPoint.activity
 						})
 					}
 
