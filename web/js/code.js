@@ -50,7 +50,7 @@ $(function(){
                         return;
 					}
 					locationJsonData.push({
-						"value":Math.floor(dataPoint.duration_seconds/60),
+						"value":Math.floor(dataPoint.duration_seconds),
 						"label":dataPoint.name
 					})
 				})
@@ -60,7 +60,7 @@ $(function(){
                         return;
 					}
 					activityJsonData.push({
-						"value":Math.floor(dataPoint.duration_seconds/60),
+						"value":Math.floor(dataPoint.duration_seconds),
 						"label":dataPoint.name
 					})
 				})
@@ -70,7 +70,7 @@ $(function(){
                         return;
 					}
 					activityHomeJsonData.push({
-						"value":Math.floor(dataPoint.duration_seconds/60),
+						"value":Math.floor(dataPoint.duration_seconds),
 						"label":dataPoint.name
 					})
 				})
@@ -80,7 +80,7 @@ $(function(){
                         return;
 					}
 					activityWorkJsonData.push({
-						"value":Math.floor(dataPoint.duration_seconds/60),
+						"value":Math.floor(dataPoint.duration_seconds),
 						"label":dataPoint.name
 					})
 				})
@@ -128,7 +128,7 @@ $(function(){
 
 								if(eachActivity.label == name.key){
 									found = true;
-									eachActivity.value = parseInt(eachActivity.value,10) + dataPoint.total_time/60;
+									eachActivity.value = parseInt(eachActivity.value,10) + dataPoint.total_time;
 									return false;
 								}
 								
@@ -140,7 +140,7 @@ $(function(){
 							}
 							else{
 								activityGroupJsonData.push({
-									"value":Math.floor(dataPoint.total_time/60),
+									"value":Math.floor(dataPoint.total_time),
 									"label":name.key
 								})
 							}
@@ -152,7 +152,7 @@ $(function(){
 
 					if(!isKnown){
 						activityGroupJsonData.push({
-							"value":Math.floor(dataPoint.total_time/60),
+							"value":Math.floor(dataPoint.total_time),
 							"label":dataPoint.activity
 						})
 					}
@@ -186,8 +186,8 @@ $(function(){
 
 		var chartData = {
 	        "chart": {
-	        	"numberPrefix":" mins",
-	           "bgColor":"#ffffff",
+			"numberPrefix":" secs",
+	            "bgColor":"#ffffff",
 	            "showvalues": "1",
 	            "showlegend": "0",
 	            "legendposition": "RIGHT",
