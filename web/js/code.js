@@ -95,7 +95,9 @@ $(function(){
 								{"key":'evernote'},
 								{"key":'github'},
 								{"key":'phone'},
-								{"key":'pirate'}]
+								{"key":'pirate'},
+								{"key":'music'},
+								{"key":'contacts'}]
 
 				
 
