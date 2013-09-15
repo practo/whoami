@@ -31,7 +31,7 @@ class ActivitySummary
     /**
      * @var string
      *
-     * @ORM\Column(name="location", type="string", length=255)
+     * @ORM\Column(name="location", type="string", length=255, nullable=true)
      */
     private $location;
 
@@ -210,5 +210,33 @@ class ActivitySummary
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Get user id
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return ($this->user)?$this->user->getId():null;
+    }
+
+    /**
+     * Serialise
+     *
+     * @return array
+     */
+    public function serialise()
+    {
+        return array(
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'location' => $this->getLocation(),
+            'duration_seconds' => $this->getDurationSeconds(),
+            'aggregation_unit' => $this->getAggregationUnit(),
+            'start_time' => $this->getStartTime(),
+            'user_id' => $this->getUserId(),
+        );
     }
 }
