@@ -60,7 +60,17 @@ class AggregateDataCommand extends ContainerAwareCommand
 
     public function categorise($activity)
     {
-        return $activity['activity'];
+        $name = $activity['activity'];
+        $parts = explode('://', $name, 2);
+        if (count($parts) > 1) {
+            $name = $parts[1];
+        }
+        $name = explode('/', $name)[0];
+        if (substr($name, 0, 4) === 'www.') {
+            $name = substr($name, 4);
+        }
+
+        return $name;
     }
 
     protected function updateLocationActivitySummary($location, $category, $lastMonday, $user, $activity)
