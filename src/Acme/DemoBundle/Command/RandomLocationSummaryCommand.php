@@ -32,15 +32,15 @@ class RandomLocationSummaryCommand extends ContainerAwareCommand
         $em = $doctrine->getManager();
         $categories = array('Home', 'Work', 'Travel', 'Other');
         $now = new \DateTime();
-        $lastSunday = new \DateTime('last sunday midnight');
-        if ($now > date_add($lastSunday, new \DateInterval('P7D'))) {
-            $lastSunday = new \DateTime('this sunday midnight');
+        $lastMonday = new \DateTime('last monday midnight');
+        if ($now > date_add($lastMonday, new \DateInterval('P7D'))) {
+            $lastMonday = new \DateTime('this monday midnight');
         }
         foreach ($categories as $category) {
             $randomDuration = rand(500, 86400 * 7 / count($categories));
             $locationSummary = new LocationSummary();
             $locationSummary->setName($category);
-            $locationSummary->setStartTime($lastSunday->getTimestamp());
+            $locationSummary->setStartTime($lastMonday->getTimestamp());
             $locationSummary->setAggregationUnit('week');
             $locationSummary->setDurationSeconds($randomDuration);
             $locationSummary->setUser($user);

@@ -33,16 +33,16 @@ class RandomActivitySummaryCommand extends ContainerAwareCommand
         $categories = array('Productivity', 'Entertainment', 'Travel',
             'Networking', 'Sleep');
         $now = new \DateTime();
-        $lastSunday = new \DateTime('last sunday midnight');
-        if ($now > date_add($lastSunday, new \DateInterval('P7D'))) {
-            $lastSunday = new \DateTime('this sunday midnight');
+        $lastMonday = new \DateTime('last monday midnight');
+        if ($now > date_add($lastMonday, new \DateInterval('P7D'))) {
+            $lastMonday = new \DateTime('this monday midnight');
         }
         foreach ($categories as $category) {
             $randomDuration = rand(500, 86400 * 7 / count($categories));
             $activitySummary = new ActivitySummary();
             $activitySummary->setName($category);
             $activitySummary->setLocation(null);
-            $activitySummary->setStartTime($lastSunday->getTimestamp());
+            $activitySummary->setStartTime($lastMonday->getTimestamp());
             $activitySummary->setAggregationUnit('week');
             $activitySummary->setDurationSeconds($randomDuration);
             $activitySummary->setUser($user);
@@ -57,7 +57,7 @@ class RandomActivitySummaryCommand extends ContainerAwareCommand
             $activitySummary = new ActivitySummary();
             $activitySummary->setName($category);
             $activitySummary->setLocation('home');
-            $activitySummary->setStartTime($lastSunday->getTimestamp());
+            $activitySummary->setStartTime($lastMonday->getTimestamp());
             $activitySummary->setAggregationUnit('week');
             $activitySummary->setDurationSeconds($randomDuration);
             $activitySummary->setUser($user);
@@ -69,7 +69,7 @@ class RandomActivitySummaryCommand extends ContainerAwareCommand
             $activitySummary = new ActivitySummary();
             $activitySummary->setName($category);
             $activitySummary->setLocation('work');
-            $activitySummary->setStartTime($lastSunday->getTimestamp());
+            $activitySummary->setStartTime($lastMonday->getTimestamp());
             $activitySummary->setAggregationUnit('week');
             $activitySummary->setDurationSeconds($randomDuration);
             $activitySummary->setUser($user);

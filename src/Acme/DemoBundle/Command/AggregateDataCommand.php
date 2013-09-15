@@ -26,8 +26,12 @@ class AggregateDataCommand extends ContainerAwareCommand
         while(true) {
             $job = $pheanstalk->watch('whoamiActivity')->reserve();
 
+            $now = new \DateTime();
+            $lastMonday = new \DateTime('last monday midnight');
+            if ($now > date_add($lastMonday, new \DateInterval('P7D'))) {
+                $lastMonday = new \DateTime('this monday midnight');
+            }
             $activity = json_decode($job->getData(), true);
-            $pheanstalk->delete($job);
             $userRepo = $doctrine->getRepository('AcmeDemoBundle:User');
             $user = $userRepo->find($activity['user_id']);
 
@@ -36,7 +40,7 @@ class AggregateDataCommand extends ContainerAwareCommand
             $category = $this->categorise($activity);
             $activitySummary = $asRepo->findOneBy(array(
                 'name' => $category,
-                'startTime' => $lastSunday->getTimestamp(),
+                'startTime' => $lastMonday->getTimestamp(),
                 'aggregationUnit' => 'week',
                 'user' => $user
             ));
@@ -45,7 +49,7 @@ class AggregateDataCommand extends ContainerAwareCommand
                 $activitySummary = new ActivitySummary();
                 $activitySummary->setName($category);
                 $activitySummary->setLocation('home');
-                $activitySummary->setStartTime($lastSunday->getTimestamp());
+                $activitySummary->setStartTime($lastMonday->getTimestamp());
                 $activitySummary->setAggregationUnit('week');
                 $activitySummary->setDurationSeconds(0);
                 $activitySummary->setUser($user);
@@ -55,7 +59,7 @@ class AggregateDataCommand extends ContainerAwareCommand
                 $activitySummary->getDurationSeconds() +  intval($activity['end_time']) - intval($activity['start_time'])
             );
             $em->flush();
-
+            $pheanstalk->delete($job);
         }
     }
 
