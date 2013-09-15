@@ -115,7 +115,7 @@ $(function(){
 							else{
 								activityGroupJsonData.push({
 									"value":Math.floor(dataPoint.total_time/60),
-									"label":dataPoint.activity
+									"label":name
 								})
 							}
 						}
