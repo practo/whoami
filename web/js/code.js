@@ -84,7 +84,7 @@ $(function(){
 		})
 
 		$.ajax({
-			url:host+"/activity/group?token="+userObject.token,
+			url:host+"/activity/androidgroup?token="+userObject.token,
 			dataType:"JSON",
 			success:function(response){
 				console.log(response);
