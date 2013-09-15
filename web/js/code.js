@@ -71,7 +71,7 @@ $(function(){
 					})
 				})
 
-				plotPie("chart1",locationJsonData);
+				plotPie("chart_location",locationJsonData);
 
 				plotPie("chart_activity_summary",activityJsonData);
 				plotPie("chart_activity_home_summary",activityHomeJsonData);
@@ -94,7 +94,7 @@ $(function(){
 		chartObject = new FusionCharts({
             swfUrl: "Charts/Doughnut2D.swf",
             width: "100%",
-            height: "350px"
+            height: "300px"
     	});
 
 		var chartData = {
