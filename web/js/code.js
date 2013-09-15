@@ -89,7 +89,7 @@ $(function(){
 			success:function(response){
 				console.log(response);
 
-				var knownNames = [1:'facebook',2:mail',3:'youtube',4:'evernote',5:'github',6:'phone',7:'pirate']
+				var knownNames = [{"1":'facebook'},{"2":'mail'},{"3":'youtube'},{"4":'evernote'},{"5":'github'},{"6":'phone'},{"7":'pirate'}]
 
 				
 
