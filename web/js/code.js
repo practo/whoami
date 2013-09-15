@@ -1,4 +1,6 @@
 var host = "http://ec2-54-254-105-248.ap-southeast-1.compute.amazonaws.com";
+
+var activityGroupJsonData = [];
 $(function(){
 	if(localStorage){
 		if(!localStorage.whoami){
@@ -89,7 +91,7 @@ $(function(){
 
 				var knownNames = ['facebook','mail','youtube','evernote','github','phone','pirate','']
 
-				var activityGroupJsonData = [];
+				
 
 				$.each(response,function(key,dataPoint){
 					var isKnown = false;
