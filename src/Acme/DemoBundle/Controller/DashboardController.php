@@ -14,13 +14,13 @@ class DashboardController extends Controller
     public function getCurrentweeksummaryAction()
     {
         $now = new \DateTime();
-        $lastSunday = new \DateTime('last sunday midnight');
-        if ($now > date_add($lastSunday, new \DateInterval('P7D'))) {
-            $lastSunday = new \DateTime('this sunday midnight');
+        $lastMonday = new \DateTime('last monday midnight');
+        if ($now > date_add($lastMonday, new \DateInterval('P7D'))) {
+            $lastMonday = new \DateTime('this monday midnight');
         }
 
         $aggregationUnit = 'week';
-        $startTime = $lastSunday->getTimestamp();
+        $startTime = $lastMonday->getTimestamp();
 
         $getParams = $this->getRequest()->query->all();
         $doctrine = $this->get('doctrine');

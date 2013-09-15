@@ -27,7 +27,7 @@ $(function(){
 
 	})
 
-	$("#token_container").html("Please use this token to authenticate :  <strong>"+ userObject.token+"</strong>");
+	$("#token_container").html("Please use the token <strong>"+ userObject.token+"</strong> to authenticate  the chrome extension and the android tracker");
 	$("#userdata").html(userObject.email);
 
 	var number = Math.floor(Math.random()*75);
@@ -95,7 +95,9 @@ $(function(){
 								{"key":'evernote'},
 								{"key":'github'},
 								{"key":'phone'},
-								{"key":'pirate'}]
+								{"key":'pirate'},
+								{"key":'music'},
+								{"key":'contacts'}]
 
 				
 
