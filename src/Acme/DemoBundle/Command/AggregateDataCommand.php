@@ -73,13 +73,13 @@ class AggregateDataCommand extends ContainerAwareCommand
             'startTime' => $lastMonday->getTimestamp(),
             'aggregationUnit' => 'week',
             'user' => $user,
-            'location' => 'home'
+            'location' => $location
         ));
 
         if (!$activitySummary) {
             $activitySummary = new ActivitySummary();
             $activitySummary->setName($category);
-            $activitySummary->setLocation(null);
+            $activitySummary->setLocation($location);
             $activitySummary->setStartTime($lastMonday->getTimestamp());
             $activitySummary->setAggregationUnit('week');
             $activitySummary->setDurationSeconds(0);
