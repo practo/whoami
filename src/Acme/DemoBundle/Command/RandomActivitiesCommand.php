@@ -35,7 +35,7 @@ class RandomActivitiesCommand extends ContainerAwareCommand
         $entries = 30;
         while ($entries > 0) {
             $activity = new Activity();
-            $startTime = time() + rand(0, 100 * $entries);
+            $startTime = time() - rand(0, 100 * $entries);
             $randomDuration = rand(30, 500);
             $activity->setActivity($activityChoices[rand(0, count($activityChoices) - 1)]);
             $activity->setStartTime($startTime);
