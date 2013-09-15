@@ -45,6 +45,18 @@ class User
     protected $token;
 
     /**
+     * @ORM\Column(name="home_hash", type="string", nullable=true)
+     * @var string $homeHash
+     */
+    protected $homeHash;
+
+    /**
+     * @ORM\Column(name="work_hash", type="string", nullable=true)
+     * @var string $workHash
+     */
+    protected $workHash;
+
+    /**
      * @ORM\OneToMany(targetEntity="LocationUpdate", mappedBy="user")
      */
     protected $locationUpdates;
@@ -99,6 +111,26 @@ class User
         return $this->token;
     }
 
+    public function setHomeHash($hash)
+    {
+        $this->homeHash = $hash;
+    }
+
+    public function getHomeHash()
+    {
+        return $this->homeHash;
+    }
+
+    public function setWorkHash($hash)
+    {
+        $this->workHash = $hash;
+    }
+
+    public function getWorkHash()
+    {
+        return $this->workHash;
+    }
+
     public function getLocationUpdates()
     {
         return $this->locationUpdates;
@@ -115,7 +147,7 @@ class User
             'id'    => $this->getId(),
             'name'  => $this->getName(),
             'email' => $this->getEmail(),
-            'token' => $this->getToken()
+            'token' => $this->getToken(),
         );
     }
 }

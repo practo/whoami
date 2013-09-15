@@ -101,3 +101,12 @@ fos_rest:
     exception:
         codes:
             'Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException': 401
+
+leezy_pheanstalk:
+    enabled: true
+    pheanstalks:
+        default:
+            server: 127.0.0.1
+            port: 11300
+            timeout: 60
+            default: true
