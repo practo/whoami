@@ -26,8 +26,13 @@ class DashboardController extends Controller
         $doctrine = $this->get('doctrine');
         $userRepo = $doctrine->getRepository('AcmeDemoBundle:User');
         $user = $userRepo->findOneByToken($getParams['token']);
+        $returnData = array(
+            'location_summary' => array(),
+            'activity_summary' => array(),
+            'activity_home_summary' => array(),
+            'activity_work_summary' => array(),
+        );
         $lsRepo = $doctrine->getRepository('AcmeDemoBundle:LocationSummary');
-        $returnData = array('location_summary' => array());
         $entities = $lsRepo->findBy(array(
             'user' => $user,
             'aggregationUnit' => 'week',
@@ -35,6 +40,34 @@ class DashboardController extends Controller
         ));
         foreach ($entities as $entity) {
             $returnData['location_summary'][] = $entity->serialise();
+        }
+        $asRepo = $doctrine->getRepository('AcmeDemoBundle:ActivitySummary');
+        $entities = $asRepo->findBy(array(
+            'user' => $user,
+            'aggregationUnit' => 'week',
+            'startTime' => $startTime,
+            'location' => null,
+        ));
+        foreach ($entities as $entity) {
+            $returnData['activity_summary'][] = $entity->serialise();
+        }
+        $entities = $asRepo->findBy(array(
+            'user' => $user,
+            'aggregationUnit' => 'week',
+            'startTime' => $startTime,
+            'location' => 'home',
+        ));
+        foreach ($entities as $entity) {
+            $returnData['activity_home_summary'][] = $entity->serialise();
+        }
+        $entities = $asRepo->findBy(array(
+            'user' => $user,
+            'aggregationUnit' => 'week',
+            'startTime' => $startTime,
+            'location' => 'work',
+        ));
+        foreach ($entities as $entity) {
+            $returnData['activity_work_summary'][] = $entity->serialise();
         }
 
         return $returnData;
