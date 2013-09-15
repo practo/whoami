@@ -43,6 +43,7 @@ class AggregateDataCommand extends ContainerAwareCommand
                                      ->where('l.user = :user')
                                      ->orderBy('l.timestamp', 'DESC')
                                      ->setMaxResults(1)
+                                     ->setParameter('user', $user)
                                      ->getQuery()
                                      ->getOneOrNullResult();
             if ($latestLocation) {
