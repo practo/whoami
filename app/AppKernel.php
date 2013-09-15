@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new Acme\DemoBundle\AcmeDemoBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

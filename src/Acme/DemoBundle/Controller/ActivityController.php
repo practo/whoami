@@ -131,6 +131,10 @@ class ActivityController extends Controller
         $activity->setUser($user);
         $em->persist($activity);
         $em->flush();
+        $pheanstalk = $this->get("leezy.pheanstalk");
+        $pheanstalk
+          ->useTube('whoamiActivity')
+          ->put(json_encode($activity->serialise()));
 
         return $activity->serialise();
     }

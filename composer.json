@@ -20,7 +20,9 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/rest-bundle": "dev-master",
-        "jms/serializer-bundle": "dev-master"
+        "jms/serializer-bundle": "dev-master",
+        "pda/pheanstalk": "2.*",
+        "leezy/pheanstalk-bundle": "2.*"
     },
     "scripts": {
         "post-install-cmd": [

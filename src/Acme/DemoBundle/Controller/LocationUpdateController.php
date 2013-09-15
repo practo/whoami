@@ -48,6 +48,11 @@ class LocationUpdateController extends Controller
         $em->persist($locationUpdate);
         $em->flush();
 
+        $pheanstalk = $this->get("leezy.pheanstalk");
+        $pheanstalk
+          ->useTube('whoamiLocationUpdate')
+          ->put(json_encode($locationUpdate->serialise()));
+
         return $locationUpdate->serialise();
     }
 
