@@ -81,6 +81,65 @@ $(function(){
 			}
 		})
 
+		$.ajax({
+			url:host+"/activity/group?token="+userObject.token,
+			dataType:"JSON",
+			success:function(response){
+				console.log(response);
+
+				var knownNames = ['facebook','mail','youtube','evernote','github','phone','pirate','']
+
+				var activityGroupJsonData = [];
+
+				$.each(response,function(key,dataPoint){
+					var isKnown = false;
+					$.each(knownNames,function(index,name){
+						if(dataPoint.activity.indexOf(name) != -1){
+							isKnown = true;
+							var found = false;
+
+							$.each(activityGroupJsonData,function(j,eachActivity){
+								if(eachActivity.label == name){
+									found = true;
+									eachActivity.value = parseInt(eachActivity.value,10) + dataPoint.total_time;
+									return false;
+								}
+								
+							})
+							if(found){
+								
+								return false;
+							}
+							else{
+								activityGroupJsonData.push({
+									"value":Math.floor(dataPoint.duration_seconds/60),
+									"label":dataPoint.name
+								})
+							}
+						}
+						else{
+
+						}
+					})
+
+					if(!isKnown){
+						activityGroupJsonData.push({
+							"value":Math.floor(dataPoint.duration_seconds/60),
+							"label":dataPoint.name
+						})
+					}
+
+					
+				})
+
+				plotPie("group_summary",activityGroupJsonData);
+
+				
+
+			    
+			}
+		})
+
 
 	}
 	getData();
