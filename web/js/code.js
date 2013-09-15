@@ -24,6 +24,7 @@ $(function(){
 		window.location = "/index.html";
 
 	})
+
 	$("#token_container").html("Please use this token to authenticate :  <strong>"+ userObject.token+"</strong>");
 	$("#userdata").html(userObject.email);
 
@@ -46,35 +47,44 @@ $(function(){
 					})
 				})
 
-				
+				plotPie("chart1",jsonData);
 
-			    var chartData1 = {
-			        "chart": {
-			        	"numberPrefix":" mins",
-			            "caption": "Where have you been ?",
-			            "bgColor":"#ffffff",
-			            "showvalues": "1",
-			            "showlegend": "0",
-			            "legendposition": "RIGHT",
-			            slicingDistance: '25',
-			            showBorder: "0",
-			        },
-		        	data:jsonData};
-
-
-		        chartObject1.setJSONData(chartData1);
-		        chartObject1.setTransparent(true);
-		        chartObject1.render("chart1");
+			    
 			}
 		})
+
+		
 	}
 	getData();
 
 	FusionCharts.setCurrentRenderer('javascript');
 
-		chartObject1 = new FusionCharts({
-	            swfUrl: "Charts/Doughnut2D.swf",
-	            width: "100%",
-	            height: "350px"
-	    });
+	
+
+	function plotPie(domId,data){
+
+		chartObject = new FusionCharts({
+            swfUrl: "Charts/Doughnut2D.swf",
+            width: "100%",
+            height: "350px"
+    	});
+
+		var chartData = {
+	        "chart": {
+	        	"numberPrefix":" mins",
+	            "caption": "Where have you been ?",
+	            "bgColor":"#ffffff",
+	            "showvalues": "1",
+	            "showlegend": "0",
+	            "legendposition": "RIGHT",
+	            slicingDistance: '25',
+	            showBorder: "0",
+	        },
+	    	data:data};
+
+
+	    chartObject.setJSONData(chartData);
+	    chartObject.setTransparent(true);
+	    chartObject.render(domId);
+	}
 })
