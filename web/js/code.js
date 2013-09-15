@@ -89,7 +89,13 @@ $(function(){
 			success:function(response){
 				console.log(response);
 
-				var knownNames = [{"key":'facebook'},{"key":'mail'},{"key":'youtube'},{"key":'evernote'},{"key":'github'},{"key":'phone'},{"key":'pirate'}]
+				var knownNames = [{"key":'facebook'},
+								{"key":'mail'},
+								{"key":'youtube'},
+								{"key":'evernote'},
+								{"key":'github'},
+								{"key":'phone'},
+								{"key":'pirate'}]
 
 				
 
@@ -117,7 +123,7 @@ $(function(){
 							}
 							else{
 								activityGroupJsonData.push({
-									"value":Math.floor(dataPoint.total_time/60),
+									"value":Math.floor(dataPoint.total_time),
 									"label":name.key
 								})
 							}
@@ -129,7 +135,7 @@ $(function(){
 
 					if(!isKnown){
 						activityGroupJsonData.push({
-							"value":Math.floor(dataPoint.total_time/60),
+							"value":Math.floor(dataPoint.total_time),
 							"label":dataPoint.activity
 						})
 					}
