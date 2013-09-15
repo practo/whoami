@@ -36,28 +36,22 @@ class AggregateDataCommand extends ContainerAwareCommand
             $user = $userRepo->find($activity['user_id']);
 
             $em = $doctrine->getManager();
-            $asRepo = $doctrine->getRepository('AcmeDemoBundle:ActivitySummary');
             $category = $this->categorise($activity);
-            $activitySummary = $asRepo->findOneBy(array(
-                'name' => $category,
-                'startTime' => $lastMonday->getTimestamp(),
-                'aggregationUnit' => 'week',
-                'user' => $user
-            ));
-
-            if (!$activitySummary) {
-                $activitySummary = new ActivitySummary();
-                $activitySummary->setName($category);
-                $activitySummary->setLocation('home');
-                $activitySummary->setStartTime($lastMonday->getTimestamp());
-                $activitySummary->setAggregationUnit('week');
-                $activitySummary->setDurationSeconds(0);
-                $activitySummary->setUser($user);
-                $em->persist($activitySummary);
+            $this->updateLocationActivitySummary(null, $category, $lastMonday, $user, $activity);
+            $luRepo = $doctrine->getRepository('AcmeDemoBundle:LocationUpdate');
+            $latestLocation = $luRepo->createQueryBuilder('l')
+                                     ->where('l.user = :user')
+                                     ->orderBy('l.timestamp', 'DESC')
+                                     ->setMaxResults(1)
+                                     ->getQuery()
+                                     ->getOneOrNullResult();
+            if ($latestLocation) {
+                if ($latestLocation->getHash() == $user->getHomeHash()) {
+                    $this->updateLocationActivitySummary('home', $category, $lastMonday, $user, $activity);
+                } else if ($latestLocation->getHash() == $user->getWorkHash()) {
+                    $this->updateLocationActivitySummary('work', $category, $lastMonday, $user, $activity);
+                }
             }
-            $activitySummary->setDurationSeconds(
-                $activitySummary->getDurationSeconds() +  intval($activity['end_time']) - intval($activity['start_time'])
-            );
             $em->flush();
             $pheanstalk->delete($job);
         }
@@ -66,5 +60,33 @@ class AggregateDataCommand extends ContainerAwareCommand
     public function categorise($activity)
     {
         return $activity['activity'];
+    }
+
+    protected function updateLocationActivitySummary($location, $category, $lastMonday, $user, $activity)
+    {
+        $doctrine = $this->getContainer()->get('doctrine');
+        $asRepo = $doctrine->getRepository('AcmeDemoBundle:ActivitySummary');
+        $em = $doctrine->getManager();
+        $activitySummary = $asRepo->findOneBy(array(
+            'name' => $category,
+            'startTime' => $lastMonday->getTimestamp(),
+            'aggregationUnit' => 'week',
+            'user' => $user,
+            'location' => 'home'
+        ));
+
+        if (!$activitySummary) {
+            $activitySummary = new ActivitySummary();
+            $activitySummary->setName($category);
+            $activitySummary->setLocation(null);
+            $activitySummary->setStartTime($lastMonday->getTimestamp());
+            $activitySummary->setAggregationUnit('week');
+            $activitySummary->setDurationSeconds(0);
+            $activitySummary->setUser($user);
+            $em->persist($activitySummary);
+        }
+        $activitySummary->setDurationSeconds(
+            $activitySummary->getDurationSeconds() +  intval($activity['end_time']) - intval($activity['start_time'])
+        );
     }
 }
