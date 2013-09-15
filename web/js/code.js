@@ -40,6 +40,8 @@ $(function(){
 
 				var locationJsonData = [];
 				var activityJsonData = [];
+				var activityHomeJsonData = [];
+				var activityWorkJsonData = [];
 
 				$.each(response.location_summary,function(key,dataPoint){
 					locationJsonData.push({
@@ -55,9 +57,25 @@ $(function(){
 					})
 				})
 
+				$.each(response.activity_home_summary,function(key,dataPoint){
+					activityHomeJsonData.push({
+						"value":Math.floor(dataPoint.duration_seconds/60),
+						"label":dataPoint.name
+					})
+				})
+
+				$.each(response.activity_work_summary,function(key,dataPoint){
+					activityWorkJsonData.push({
+						"value":Math.floor(dataPoint.duration_seconds/60),
+						"label":dataPoint.name
+					})
+				})
+
 				plotPie("chart1",locationJsonData);
 
 				plotPie("chart_activity_summary",activityJsonData);
+				plotPie("chart_activity_home_summary",activityHomeJsonData);
+				plotPie("chart_activity_work_summary",activityWorkJsonData);
 
 			    
 			}
@@ -82,8 +100,7 @@ $(function(){
 		var chartData = {
 	        "chart": {
 	        	"numberPrefix":" mins",
-	            "caption": "Where have you been ?",
-	            "bgColor":"#ffffff",
+	           "bgColor":"#ffffff",
 	            "showvalues": "1",
 	            "showlegend": "0",
 	            "legendposition": "RIGHT",
