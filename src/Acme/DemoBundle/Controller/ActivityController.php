@@ -134,4 +134,28 @@ class ActivityController extends Controller
 
         return $activity->serialise();
     }
+
+    public function getActivityGroupAction()
+    {
+        $getParams = $this->getRequest()->query->all();
+        $doctrine = $this->get('doctrine');
+        $repo = $doctrine->getRepository('AcmeDemoBundle:User');
+        $user = $repo->findOneByToken($getParams['token']);
+        $em = $doctrine->getManager();
+
+        $now = new \DateTime();
+        $week = new \DateTime();
+        $week->sub(new \DateInterval('P07D'));
+
+        $qb = $em->createQueryBuilder()
+                  ->select('SUM(a.endTime - a.startTime) as total_time, a.activity')
+                  ->from('AcmeDemoBundle:Activity', 'a')
+                  ->where('a.user = :userId')
+                  ->andWhere('a.startTime <= :start')
+                  ->andWhere('a.endTime >= :end')
+                  ->groupBy('a.activity')
+                  ->setParameters(array('userId' => $user->getId(),
+                    'start' => $now->getTimestamp(), 'end' => $week->getTimestamp()));
+        return $qb->getQuery()->getResult();
+    }
 }

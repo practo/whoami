@@ -50,4 +50,31 @@ class LocationUpdateController extends Controller
 
         return $locationUpdate->serialise();
     }
+
+    public function getLocationupdatesToptwoplacesAction()
+    {
+        $getParams = $this->getRequest()->query->all();
+        $doctrine = $this->get('doctrine');
+        $repo = $doctrine->getRepository('AcmeDemoBundle:User');
+        $user = $repo->findOneByToken($getParams['token']);
+        $em = $doctrine->getManager();
+
+        $now = new \DateTime();
+        $week = new \DateTime();
+        $week->sub(new \DateInterval('P07D'));
+
+        $qb = $em->createQueryBuilder()
+                  ->select('a')
+                  ->from('AcmeDemoBundle:LocationUpdate', 'a')
+                  ->where('a.user = :userId')
+                  ->andWhere('a.timestamp <= :start')
+                  ->andWhere('a.timestamp >= :end')
+                  ->setParameters(array('userId' => $user->getId(),
+                    'start' => $now->getTimestamp(), 'end' => $week->getTimestamp()));
+        $activities = $qb->getQuery()->getResult();
+
+        foreach ($activities as $activity) {
+            $combined[$activity->getHash()][] = array($activity->getLatitude(), $activity->getLongitude(), $activity->getTimestamp());
+        }
+    }
 }
