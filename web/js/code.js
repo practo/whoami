@@ -46,6 +46,9 @@ $(function(){
 				var activityWorkJsonData = [];
 
 				$.each(response.location_summary,function(key,dataPoint){
+					if(dataPoint.name.indexOf("ec2-54") !==-1){
+                        return;
+					}
 					locationJsonData.push({
 						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
@@ -53,6 +56,9 @@ $(function(){
 				})
 
 				$.each(response.activity_summary,function(key,dataPoint){
+					if(dataPoint.name.indexOf("ec2-54") !==-1){
+                        return;
+					}
 					activityJsonData.push({
 						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
@@ -60,6 +66,9 @@ $(function(){
 				})
 
 				$.each(response.activity_home_summary,function(key,dataPoint){
+					if(dataPoint.name.indexOf("ec2-54") !==-1){
+                        return;
+					}
 					activityHomeJsonData.push({
 						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
@@ -67,6 +76,9 @@ $(function(){
 				})
 
 				$.each(response.activity_work_summary,function(key,dataPoint){
+					if(dataPoint.name.indexOf("ec2-54") !==-1){
+                        return;
+					}
 					activityWorkJsonData.push({
 						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
