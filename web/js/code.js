@@ -96,7 +96,7 @@ $(function(){
 				$.each(response,function(key,dataPoint){
 					var isKnown = false;
 					$.each(knownNames,function(index,name){
-						if(dataPoint.activity.indexOf(name) != -1){
+						if(dataPoint.activity.search(name) > -1){
 							isKnown = true;
 							var found = false;
 
@@ -108,6 +108,7 @@ $(function(){
 								}
 								
 							})
+
 							if(found){
 								
 								return false;
