@@ -38,9 +38,9 @@ class LocationSummaryCommand extends ContainerAwareCommand
             $lsRepo = $doctrine->getRepository('AcmeDemoBundle:LocationSummary');
             $luRepo = $doctrine->getRepository('AcmeDemoBundle:LocationUpdate');
             if ($location['hash'] == $user->getHomeHash()) {
-                $category = 'home';
+                $category = 'Home';
             } else if ($location['hash'] == $user->getWorkHash()) {
-                $category = 'work';
+                $category = 'Work';
             } else {
                 $em = $doctrine->getManager();
                 $qb = $em->createQueryBuilder()
@@ -58,9 +58,9 @@ class LocationSummaryCommand extends ContainerAwareCommand
                           ));
                 $count = intval($qb->getQuery()->getSingleScalarResult());
                 if ($count>5) {
-                    $category = 'other';
+                    $category = 'Other';
                 } else {
-                    $category = 'travel';
+                    $category = 'Travel';
                 }
             }
 
