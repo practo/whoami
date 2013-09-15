@@ -111,7 +111,7 @@ $(function(){
 
 								if(eachActivity.label == name.key){
 									found = true;
-									eachActivity.value = parseInt(eachActivity.value,10) + dataPoint.total_time;
+									eachActivity.value = parseInt(eachActivity.value,10) + dataPoint.total_time/60;
 									return false;
 								}
 								
@@ -123,7 +123,7 @@ $(function(){
 							}
 							else{
 								activityGroupJsonData.push({
-									"value":Math.floor(dataPoint.total_time),
+									"value":Math.floor(dataPoint.total_time/60),
 									"label":name.key
 								})
 							}
@@ -135,7 +135,7 @@ $(function(){
 
 					if(!isKnown){
 						activityGroupJsonData.push({
-							"value":Math.floor(dataPoint.total_time),
+							"value":Math.floor(dataPoint.total_time/60),
 							"label":dataPoint.activity
 						})
 					}
