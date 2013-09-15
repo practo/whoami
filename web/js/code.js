@@ -89,19 +89,21 @@ $(function(){
 			success:function(response){
 				console.log(response);
 
-				var knownNames = [{"1":'facebook'},{"2":'mail'},{"3":'youtube'},{"4":'evernote'},{"5":'github'},{"6":'phone'},{"7":'pirate'}]
+				var knownNames = [{"key":'facebook'},{"key":'mail'},{"key":'youtube'},{"key":'evernote'},{"key":'github'},{"key":'phone'},{"key":'pirate'}]
 
 				
 
 				$.each(response,function(key,dataPoint){
 					var isKnown = false;
 					$.each(knownNames,function(index,name){
-						if(dataPoint.activity.search(name) > -1){
+						if(dataPoint.activity.search(name.key) > -1){
+
 							isKnown = true;
 							var found = false;
 
 							$.each(activityGroupJsonData,function(j,eachActivity){
-								if(eachActivity.label == name){
+
+								if(eachActivity.label == name.key){
 									found = true;
 									eachActivity.value = parseInt(eachActivity.value,10) + dataPoint.total_time;
 									return false;
@@ -116,7 +118,7 @@ $(function(){
 							else{
 								activityGroupJsonData.push({
 									"value":Math.floor(dataPoint.total_time/60),
-									"label":name
+									"label":name.key
 								})
 							}
 						}
