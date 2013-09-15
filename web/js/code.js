@@ -102,6 +102,9 @@ $(function(){
 				
 
 				$.each(response,function(key,dataPoint){
+					if(dataPoint.activity.indexOf("ec2-54") !==-1){
+                        return;
+					}
 					var isKnown = false;
 					$.each(knownNames,function(index,name){
 						if(dataPoint.activity.search(name.key) > -1){
