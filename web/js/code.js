@@ -38,22 +38,32 @@ $(function(){
 			success:function(response){
 				console.log(response);
 
-				var jsonData = [];
+				var locationJsonData = [];
+				var activityJsonData = [];
 
 				$.each(response.location_summary,function(key,dataPoint){
-					jsonData.push({
+					locationJsonData.push({
 						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
 					})
 				})
 
-				plotPie("chart1",jsonData);
+				$.each(response.activity_summary,function(key,dataPoint){
+					activityJsonData.push({
+						"value":Math.floor(dataPoint.duration_seconds/60),
+						"label":dataPoint.name
+					})
+				})
+
+				plotPie("chart1",locationJsonData);
+
+				plotPie("chart_activity_summary",activityJsonData);
 
 			    
 			}
 		})
 
-		
+
 	}
 	getData();
 
