@@ -80,7 +80,7 @@ $(function(){
                         return;
 					}
 					activityWorkJsonData.push({
-						"value":Math.floor(dataPoint.duration_seconds),
+						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
 					})
 				})
