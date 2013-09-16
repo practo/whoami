@@ -50,7 +50,7 @@ $(function(){
                         return;
 					}
 					locationJsonData.push({
-						"value":Math.floor(dataPoint.duration_seconds),
+						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
 					})
 				})
@@ -60,7 +60,7 @@ $(function(){
                         return;
 					}
 					activityJsonData.push({
-						"value":Math.floor(dataPoint.duration_seconds),
+						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
 					})
 				})
@@ -70,7 +70,7 @@ $(function(){
                         return;
 					}
 					activityHomeJsonData.push({
-						"value":Math.floor(dataPoint.duration_seconds),
+						"value":Math.floor(dataPoint.duration_seconds/60),
 						"label":dataPoint.name
 					})
 				})
