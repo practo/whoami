@@ -12,7 +12,7 @@ $(function(){
 		alert("Sorry. You cant use this app.")
 	}
 	try{
-		console.log(JSON.parse(localStorage.whoami));se
+		console.log(JSON.parse(localStorage.whoami));
 	}
 	catch(e){
 		delete localStorage.whoami;
