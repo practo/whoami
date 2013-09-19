@@ -12,7 +12,7 @@ $(function(){
 		alert("Sorry. You cant use this app.")
 	}
 	try{
-		console.log(JSON.parse(localStorage.whoami));
+		console.log(JSON.parse(localStorage.whoami));se
 	}
 	catch(e){
 		delete localStorage.whoami;
@@ -186,7 +186,7 @@ $(function(){
 
 		var chartData = {
 	        "chart": {
-			"numberPrefix":" secs",
+			"numberPrefix":" mins",
 	            "bgColor":"#ffffff",
 	            "showvalues": "1",
 	            "showlegend": "0",
